@@ -6,6 +6,7 @@
 #include "ray.h"
 #include "camera.h"
 #include "sphere.h"
+#include "plane.h"
 #include "hittable.h"
 #include <vector>
 #include <memory>
@@ -32,6 +33,10 @@ int main() {
     world.add(std::make_shared<sphere>(vec3(-.2,.3,-.9), 0.3));
     world.add(std::make_shared<sphere>(vec3(.2,-.3,-.9), 0.3));
     world.add(std::make_shared<sphere>(vec3(.4,-.2,-1), 0.4));
+    
+    world.add(std::make_shared<plane>(vec3(2, 1, 0), vec3(-.4,-.3,-.6), .1, .3));
+    world.add(std::make_shared<plane>(vec3(2, -.6, 0.8), vec3(-.6,.3,-.6), .1, .2));
+    world.add(std::make_shared<plane>(vec3(-.3, .2, 1), vec3(.5, 0,-2), 1.5, 3));
 
     out << "P3\n" << horizontal << " " << vertical << "\n255\n";
 
