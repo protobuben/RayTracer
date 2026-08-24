@@ -7,6 +7,9 @@
 #include "camera.h"
 #include "sphere.h"
 #include "hittable.h"
+#include <vector>
+#include <memory>
+#include "hittable_list.h"
 
 
 void write_color(std::ostream& out, const vec3& pixel_color) {
@@ -24,7 +27,12 @@ int main() {
     const int vertical = 240;
     const vec3 light_direction = vec3(-1.0, -1.0, -.5);
 
-    sphere s(vec3(0,0,-1), .5);
+    hittable_list world;
+    world.add(std::make_shared<sphere>(vec3(0,0,-1), 0.5));
+    world.add(std::make_shared<sphere>(vec3(-.2,.3,-.9), 0.3));
+    world.add(std::make_shared<sphere>(vec3(.2,-.3,-.9), 0.3));
+    world.add(std::make_shared<sphere>(vec3(.4,-.2,-1), 0.4));
+
     out << "P3\n" << horizontal << " " << vertical << "\n255\n";
 
     camera cam(horizontal, vertical);
@@ -36,7 +44,7 @@ int main() {
 
             hit_record record;
 
-            if (s.hit(r, 0.001, 1e9, record)) {
+            if (world.hit(r, 0.001, 1e9, record)) {
                 const double brightness = std::max(dot(-light_direction, record.normal), 0.0);
                 pixel_color = vec3(1.0, 1.0, 1.0) * (.1 + .9*brightness);
 
