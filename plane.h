@@ -5,14 +5,13 @@
 #include "hittable.h"
 
 struct plane : public hittable {
-    vec3 coefs;
-    vec3 norm;
+
+    vec3 coefs, norm, origin, color;
     double displacement;
-    vec3 origin;
     double size_x, size_y;
     vec3 u, v;
     
-    plane(const vec3& c, vec3 o, double x, double y) : coefs(c), norm(unit_vec3(c)), origin(o), size_x(x), size_y(y) {
+    plane(const vec3& c, vec3 o, double x, double y, vec3 col = vec3(1.0,1.0,1.0)) : coefs(c), norm(unit_vec3(c)), origin(o), size_x(x), size_y(y), color(col) {
         displacement = dot(norm, origin);
         vec3 u_0 = vec3(0.0, 1.0, 0.0);
         if (std::fabs(dot(norm, u_0)) > 0.9) { u_0 = vec3(1.0, 0.0, 0.0); }
@@ -40,6 +39,7 @@ struct plane : public hittable {
         rec.t = t;
         rec.p = point;
         rec.normal = norm;
+        rec.color = color;
         return true;
     }
 };

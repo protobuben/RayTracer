@@ -30,13 +30,13 @@ int main() {
 
     hittable_list world;
     world.add(std::make_shared<sphere>(vec3(0,0,-1), 0.5));
-    world.add(std::make_shared<sphere>(vec3(-.2,.3,-.9), 0.3));
-    world.add(std::make_shared<sphere>(vec3(.2,-.3,-.9), 0.3));
-    world.add(std::make_shared<sphere>(vec3(.4,-.2,-1), 0.4));
+    world.add(std::make_shared<sphere>(vec3(-.2,.3,-.9), 0.3, vec3(1.0, 1.0, 0.0)));
+    world.add(std::make_shared<sphere>(vec3(.2,-.3,-.9), 0.3, vec3(1.0, 0.0, 1.0)));
+    world.add(std::make_shared<sphere>(vec3(.4,-.2,-1), 0.4, vec3(0.0, 1.0, 1.0)));
     
-    world.add(std::make_shared<plane>(vec3(2, -.6, 0.8), vec3(-.6,.3,-.6), .1, .2));
-    world.add(std::make_shared<plane>(vec3(-2, -.6, 0.8), vec3(.5,0,-.6), .1, .2));
-    world.add(std::make_shared<plane>(vec3(0.1, -.3, 0.8), vec3(0.4,-0.6,-.8), .6, .4));
+    world.add(std::make_shared<plane>(vec3(2, -.6, 0.8), vec3(-.6,.3,-.6), .1, .2, vec3(1.0, 0.0, 0.0)));
+    world.add(std::make_shared<plane>(vec3(-2, 3, 0.8), vec3(.5,-0.3,-.6), .1, .2, vec3(0.0, 1.0, 0.0)));
+    world.add(std::make_shared<plane>(vec3(0.1, -.3, 0.8), vec3(0.4,-0.6,-.8), .6, .4, vec3(0.0, 0.0, 1.0)));
 
     world.add(std::make_shared<plane>(vec3(0, 1, 0), vec3(0, -1,-1), 3, 3));
 
@@ -57,9 +57,9 @@ int main() {
             const double brightness = std::max(dot(-light_direction, record.normal), 0.0);
             const bool in_shadow = world.hit(shadow_ray, 0.001, 1e9, tmp);
 
-            if (in_shadow) { write_color(out, vec3(1,1,1) * 0.1); continue; }
+            if (in_shadow) { write_color(out, record.color * 0.1); continue; }
 
-            pixel_color = vec3(1.0, 1.0, 1.0) * (.1 + .9*brightness);
+            pixel_color = record.color * (.1 + .9*brightness);
 
             write_color(out, pixel_color);
 

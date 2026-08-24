@@ -3,7 +3,7 @@ A ray tracer built as a platform for visualising relativistic effects -
 special relativity first (aberration, Doppler shift, beaming), then
 geodesic tracing in curved spacetime.
 
-![Current state](renders/shadows.png)
+![Current state](renders/colors.png)
 
 ### Plan
 - [x] PPM output
@@ -24,7 +24,8 @@ g++ -O2 -Wall main.cpp -o main.exe
 ```
 
 ## Archive
-![Sphere intersection](renders/sphere_detection.png)
-![Lambertian shading on a sphere](renders/Lambertian_shading_on_a_sphere.png)
-![Current state](renders/sphere_cluster.png)
-![Current state](renders/planes.png)
+![](renders/sphere_detection.png)
+![](renders/Lambertian_shading_on_a_sphere.png)
+![](renders/sphere_cluster.png)
+![](renders/planes.png)
+![](renders/shadows.png)
