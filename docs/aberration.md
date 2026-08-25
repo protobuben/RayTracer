@@ -139,6 +139,7 @@ $\bar{d}' = \hat{n}$ -- ray along movement direction ($a=1$): gives $\frac{(1-\b
 $a=0$ -- ray perpendicular to camera frame movement direction: gives $\bar{d} = -\beta_r\hat{n} + \sqrt{1-\beta_r^2}\,\bar{d}'$ -- the lab direction is tilted against the motion, so what the camera sees ahead of it actually lies to the side. Equivalently in scalar case $\cos{\phi} = 0 \implies \cos{\phi'} = -\beta_r$ -- the whole sky squeezes towards the direction of travel;
 
 Norm: since 
+
 $$
 \bar{d}_\perp \perp \hat{n}, \qquad |\bar{d}_\perp|^2 = 1 - a^2,
 $$
