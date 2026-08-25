@@ -135,7 +135,7 @@ The two sign flips cancel, so the implemented formula is identical to the forwar
 - $\beta _ r = 0$: reduces to 
 
 $$
-\bar{d} = a\hat{n} + \bar{d} - a\hat{n} = \bar{d}
+\bar{d} = a\hat{n} + \bar{d}' - a\hat{n} = \bar{d}'
 $$
 
 no aberration;
