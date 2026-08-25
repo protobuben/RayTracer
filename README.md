@@ -2,6 +2,7 @@
 A ray tracer built as a platform for visualising relativistic effects -
 special relativity first (aberration, Doppler shift, beaming), then
 geodesic tracing in curved spacetime.
+
 ![left_forward_at_beta_08](renders/left_forward_at_beta_08.png)
 
 ### Plan
