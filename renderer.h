@@ -32,9 +32,7 @@ inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir
     return record.color * (.1 + .9*brightness);
 }
 
-inline void render (std::ostream& out, const camera& cam, const hittable& world, const vec3& light_dir) {
-    const int samples = 128;
-
+inline void render (std::ostream& out, const camera& cam, const hittable& world, const vec3& light_dir, const double samples = 8) {
     const int horizontal = cam.resX;
     const int vertical = cam.resY;
     out << "P3\n" << horizontal << " " << vertical << "\n255\n";

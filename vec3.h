@@ -26,3 +26,4 @@ inline vec3 unit_vec3(const vec3& v) { return v/v.length(); }
 
 inline double dot(const vec3& u, const vec3& v) { return u.x*v.x + u.y*v.y + u.z*v.z; }
 inline vec3 cross(const vec3& u, const vec3& v) { return vec3(u.y*v.z - v.y*u.z, u.z*v.x - v.z*u.x, u.x*v.y - v.x*u.y); }
+
