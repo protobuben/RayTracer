@@ -3,8 +3,8 @@ $$
 \begin{aligned}
 &\hat{n} \text{ - unit camera movement direction} \\
 &\beta_r \text{ - relative speed between frames as fraction of } c \\
-&x,\, y,\, t \text{ - units in lab frame} \\
-&x',\, y',\, t' \text{ - units in camera frame} \\
+&x,\ y,\ t \text{ - units in lab frame} \\
+&x',\ y',\ t' \text{ - units in camera frame} \\
 &\bar{p}  \text{ - photon direction in lab frame} \\
 &\bar{p}'  \text{ - photon direction in camera frame} \\
 &\bar{d}  \text{ - ray direction in lab frame} \\
