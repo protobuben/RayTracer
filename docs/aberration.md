@@ -56,7 +56,7 @@ $$
 1 + \left(\frac{\Delta y'}{\Delta x'}\right)^2 &= \left(\frac{\Delta t'}{\Delta x'}\right)^2 \\
 1 + \tan^2\phi' &= \left(\frac{\Delta t'}{\Delta x'}\right)^2 \\
 \cos^2{\phi'} &= \left(\frac{\Delta x'}{\Delta t'}\right)^2 \\
-\cos{\phi'} &= \frac{\Delta x'}{\Delta t'}, \, \Delta t' > 0 \\
+\cos{\phi'} &= \frac{\Delta x'}{\Delta t'}, \quad \Delta t' > 0 \\
 \end{aligned}
 $$
 
