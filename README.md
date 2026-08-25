@@ -2,8 +2,7 @@
 A ray tracer built as a platform for visualising relativistic effects -
 special relativity first (aberration, Doppler shift, beaming), then
 geodesic tracing in curved spacetime.
-smooth_colors.png
-![Current state](renders/smooth_colors.png)
+![left_forward_at_beta_08](renders/left_forward_at_beta_08.png)
 
 ### Plan
 - [x] PPM output
@@ -12,7 +11,7 @@ smooth_colors.png
 - [x] Hittable abstraction
 - [x] Shadows 
 - [x] Coloring
-- [ ] SR: aberration, Doppler, beaming
+- [ ] SR: [aberration](./docs/aberration.md), Doppler, beaming
 - [ ] Schwarzschild geodesics
 - [ ] Kerr
 
@@ -32,3 +31,4 @@ g++ -O2 -Wall main.cpp -o main.exe
 ![](renders/planes.png)
 ![](renders/shadows.png)
 ![](renders/colors.png)
+![](renders/smooth_colors.png)
