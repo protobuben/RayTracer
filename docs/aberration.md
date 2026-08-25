@@ -23,8 +23,10 @@ derive angle $\phi'$ to $x'$ axis of photon's direction in camera's frame, if in
 Since the photon's speed equals $\beta_c=1$, distances traveled along $x$ and $y$ become
 
 $$
-\Delta x = \Delta t\cos{\phi}\\ 
-\Delta y = \Delta t\sin{\phi} = \Delta y'
+\begin{aligned}
+\Delta x &= \Delta t\cos{\phi} \\ 
+\Delta y &= \Delta t\sin{\phi} = \Delta y'
+\end{aligned}
 $$
 
 Because boost is along $x$ axis, speed along $y$ doesn't change.
@@ -32,8 +34,10 @@ Because boost is along $x$ axis, speed along $y$ doesn't change.
 Therefore, via Lorentz transformation formula we can derive:
 
 $$
-\Delta x' = \Delta t(\cos{\phi}\cosh{\theta_r}-\sinh{\theta_r})\\ 
-\Delta t' = \Delta t(\cosh{\theta_r}-\cos{\phi}\sinh{\theta_r})
+\begin{aligned}
+\Delta x' &= \Delta t(\cos{\phi}\cosh{\theta_r}-\sinh{\theta_r}) \\ 
+\Delta t' &= \Delta t(\cosh{\theta_r}-\cos{\phi}\sinh{\theta_r})
+\end{aligned}
 $$
 
 where $\beta_r=\tanh{\theta_r}$ - relative speed of camera frame.
