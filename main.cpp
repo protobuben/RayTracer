@@ -11,21 +11,10 @@
 #include <vector>
 #include <memory>
 #include "hittable_list.h"
-
-
-void write_color(std::ostream& out, const vec3& pixel_color) {
-
-    const int r = static_cast<int>(255.999*pixel_color.x);
-    const int g = static_cast<int>(255.999*pixel_color.y);
-    const int b = static_cast<int>(255.999*pixel_color.z);
-
-    out << r << " " << g << " " << b << "\n";
-}
+#include "renderer.h"
 
 int main() {
     std::ofstream out("image.ppm");
-    const int horizontal = 800;
-    const int vertical = 600;
     const vec3 light_direction = vec3(-1.0, -1.0, -.5);
 
     hittable_list world;
@@ -40,31 +29,7 @@ int main() {
 
     world.add(std::make_shared<plane>(vec3(0, 1, 0), vec3(0, -1,-1), 3, 3));
 
-    out << "P3\n" << horizontal << " " << vertical << "\n255\n";
-
-    camera cam(horizontal, vertical, vec3(0.0, 0.0, .5));
-
-    for (int j = 0; j < vertical; j++) {
-        for (int i = 0; i < horizontal; i++) {
-            vec3 pixel_color;
-            const ray r = cam.project(i, j);
-
-            hit_record record;
-
-            if (!world.hit(r, 0.001, 1e9, record)) { write_color(out, vec3()); continue; } 
-             const ray shadow_ray(record.p, -light_direction);
-            hit_record tmp;
-            const double brightness = std::max(dot(-light_direction, record.normal), 0.0);
-            const bool in_shadow = world.hit(shadow_ray, 0.001, 1e9, tmp);
-
-            if (in_shadow) { write_color(out, record.color * 0.1); continue; }
-
-            pixel_color = record.color * (.1 + .9*brightness);
-
-            write_color(out, pixel_color);
-
-        }
-    }
-
+    camera cam(800, 600, vec3(0.0, 0.0, .5));
+    render(out, cam, world, light_direction);
     return 0;
 }
