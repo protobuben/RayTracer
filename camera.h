@@ -1,6 +1,7 @@
 #pragma once
 #include "vec3.h"
 #include "ray.h"
+#include "constants.h"
 
 struct camera { 
     vec3 origin;
@@ -17,7 +18,7 @@ struct camera {
     
     camera(int x = 800, int y = 600, vec3 o = vec3()): resX(x), resY(y), origin(o) {};
 
-    ray project(int x, int y) const {
-        return ray(origin, top_left + step_x*x + step_y*y);
+    ray project(int x, int y, double dx = 0, double dy = 0) const {
+        return ray(origin, top_left + step_x*(x + dx) + step_y*(y + dy));
     }
 };

@@ -29,7 +29,7 @@ int main() {
 
     world.add(std::make_shared<plane>(vec3(0, 1, 0), vec3(0, -1,-1), 3, 3));
 
-    camera cam(800, 600, vec3(0.0, 0.0, .5));
+    camera cam(360, 240, vec3(0.0, 0.0, .5));
     render(out, cam, world, light_direction);
     return 0;
 }
