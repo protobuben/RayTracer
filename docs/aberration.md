@@ -141,7 +141,7 @@ $a=0$ -- ray perpendicular to camera frame movement direction: gives $\bar{d} = 
 Norm: since 
 
 $$
-\bar{d}_\perp \perp \hat{n}, \qquad |\bar{d}_\perp|^2 = 1 - a^2,
+\bar{d} _ \perp \perp \hat{n}, \qquad |\bar{d} _ \perp|^2 = 1 - a^2,
 $$
 
 due to Pythagorean theorem for orthogonal decomposition and $|\bar{d}'| = 1$ we get:
