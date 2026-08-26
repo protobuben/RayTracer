@@ -28,7 +28,7 @@ Each object emits at a single wavelength, so the Doppler shift is a shift of tha
 - [ ] Schwarzschild geodesics
 - [ ] Kerr
 
-## Rendering improvements
+### Rendering improvements
 Independent of the physics track above
 
 - [ ] Point light sources with distance falloff
