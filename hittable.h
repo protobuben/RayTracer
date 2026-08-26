@@ -3,7 +3,8 @@
 #include "ray.h"
 
 struct hit_record {
-    vec3 p, normal, color;
+    vec3 p, normal;
+    double wavelength;
     double t;
 };
 

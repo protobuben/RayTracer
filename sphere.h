@@ -5,10 +5,11 @@
 #include "hittable.h"
 
 struct sphere : public hittable {
-    vec3 center, color;
+    vec3 center;
+    double wavelength;
     double radius;
 
-    sphere(const vec3& c, double r, vec3 col = vec3(1.0,1.0,1.0)) : center(c), radius(r), color(col) {};
+    sphere(const vec3& c, double r, double lambda = 0) : center(c), wavelength(lambda), radius(r) {};
 
     bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override {
         const vec3 distance = r.origin - center;
@@ -29,7 +30,7 @@ struct sphere : public hittable {
         rec.t = t;
         rec.p = r.at(t);
         rec.normal = (rec.p - center)/radius;
-        rec.color = color;
+        rec.wavelength = wavelength;
         return true;
     }
 };

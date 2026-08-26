@@ -6,6 +6,7 @@
 #include "camera.h"
 #include "hittable.h"
 #include "constants.h"
+#include "color.h"
 
 
 inline void write_color(std::ostream& out, const vec3& pixel_color) {
@@ -17,7 +18,7 @@ inline void write_color(std::ostream& out, const vec3& pixel_color) {
     out << r << " " << g << " " << b << "\n";
 }
 
-inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir) {
+inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir, double beta) {
     hit_record record;
 
     if (!world.hit(r, eps, infinity, record)) { return vec3(); } 
@@ -27,9 +28,12 @@ inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir
     const double brightness = std::max(dot(-light_dir, record.normal), 0.0);
     const bool in_shadow = world.hit(shadow_ray, eps, infinity, tmp);
 
-    if (in_shadow) { return record.color * 0.1; }
+    double lambda_observed = record.wavelength * doppler_factor(r, light_dir, beta);
+    const vec3 color = xyz_to_srgb(wavelength_to_xyz(lambda_observed));
 
-    return record.color * (.1 + .9*brightness);
+    if (in_shadow) { return color * 0.1; }
+
+    return color * (.1 + .9*brightness);
 }
 
 inline void render (std::ostream& out, const camera& cam, const hittable& world, const vec3& light_dir, const double samples = 8) {
@@ -41,7 +45,7 @@ inline void render (std::ostream& out, const camera& cam, const hittable& world,
         for (int i = 0; i < horizontal; i++) {
             vec3 pixel_color;
             for (int s = 0; s < samples; s++){
-                pixel_color += ray_color(cam.project(i, j, (random_double()-.5), (random_double()-.5)), world, light_dir);
+                pixel_color += ray_color(cam.project(i, j, (random_double()-.5), (random_double()-.5)), world, light_dir, cam.beta);
             }
 
             write_color(out, (pixel_color/samples));
