@@ -15,6 +15,7 @@ doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, came
 |:---:|:---:|
 | ![doppler shift at beta=0.2](renders/doppler_02.png) | ![doppler shift at beta=0.3](renders/doppler_03.png) |
 
+Each object emits at a single wavelength, so the Doppler shift is a shift of that one wavelength. This is why the scene has no white or grey surfaces - white light is a broad spectrum, which a monochromatic model cannot represent. Colours are converted to sRGB through the CIE 1931 colour matching functions (Wyman, Sloan & Shirley analytic fit), then desaturated into gamut and gamma-corrected.
 
 ### Plan
 - [x] PPM output
