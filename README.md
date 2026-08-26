@@ -2,16 +2,18 @@
 A ray tracer built as a platform for visualising relativistic effects -
 special relativity first, then geodesic tracing in curved spacetime.
 
-Personal reason of this project is to actually see what happens at different speeds, rather than assuming said facts in theory.
+The personal reason for this project is to actually see what happens at different speeds, rather than taking facts from books as is.
 
 ### Current state:
 doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, camera movement vector (0, 0, -1) - forward, light_direction = (-1, -1, -0.5):
 
 | β = 0 | β = 0.1 |
-|---|---|
-| ![](renders/doppler_00.png) | ![](renders/doppler_01.png) |
+|:---:|:---:|
+| ![doppler shift at beta=0](renders/doppler_00.png) | ![doppler shift at beta=0.1](renders/doppler_01.png) |
+
 | β = 0.2 | β = 0.3 |
-| ![](renders/doppler_02.png) | ![](renders/doppler_03.png) |
+|:---:|:---:|
+| ![doppler shift at beta=0.2](renders/doppler_02.png) | ![doppler shift at beta=0.3](renders/doppler_03.png) |
 
 
 ### Plan
