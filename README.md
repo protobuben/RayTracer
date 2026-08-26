@@ -1,12 +1,17 @@
 # Ray tracer
 A ray tracer built as a platform for visualising relativistic effects -
-special relativity first (aberration, Doppler shift, beaming), then
-geodesic tracing in curved spacetime.
+special relativity first, then geodesic tracing in curved spacetime.
 
-![doppler effect at speed beta=0](renders/doppler_00.png)
-![doppler effect at speed beta=0.1](renders/doppler_01.png)
-![doppler effect at speed beta=0.2](renders/doppler_02.png)
-![doppler effect at speed beta=0.3](renders/doppler_03.png)
+Personal reason of this project is to actually see what happens at different speeds, rather than assuming said facts in theory.
+
+### Current state:
+doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, camera movement vector (0, 0, -1) - forward, light_direction = (-1, -1, -0.5):
+
+| β = 0 | β = 0.1 |
+|---|---|
+| ![](renders/doppler_00.png) | ![](renders/doppler_01.png) |
+| β = 0.2 | β = 0.3 |
+| ![](renders/doppler_02.png) | ![](renders/doppler_03.png) |
 
 
 ### Plan
@@ -19,6 +24,17 @@ geodesic tracing in curved spacetime.
 - [ ] SR: [aberration](./docs/aberration.md), Doppler, beaming
 - [ ] Schwarzschild geodesics
 - [ ] Kerr
+
+## Rendering improvements
+Independent of the physics track above
+
+- [ ] Point light sources with distance falloff
+- [ ] Emissive objects (visible light sources)
+- [ ] Reflections (recursive ray_color)
+- [ ] Full spectral rendering instead of single wavelength
+- [ ] Multithreading (std::thread over scanlines)
+- [ ] GPU port
+- [ ] Real-time viewer with free camera
 
 ## Usage
 Program outputs a .ppm file. Can be opened in VSCode via [Extension](https://marketplace.visualstudio.com/items?itemName=ngtystr.ppm-pgm-viewer-for-vscode)

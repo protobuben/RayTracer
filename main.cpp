@@ -32,7 +32,7 @@ int main() {
     world.add(std::make_shared<plane>(vec3(0, 1, 0), vec3(0, -1,-1), 5, 5, 575));
     world.add(std::make_shared<plane>(vec3(-1, .5, 2), vec3(5,1,-7), 3, 3, 575));
 
-    camera cam(360, 240, vec3(-.5, 0.5, 0.5), unit_vec3(vec3(0.0,0.0,-1.0)), 0.4);
+    camera cam(360, 240, vec3(-.5, 0.5, 0.5), unit_vec3(vec3(0.0,0.0,-1.0)), 0.2);
     render(out, cam, world, light_direction);
     return 0;
 }
