@@ -5,7 +5,7 @@ special relativity first, then geodesic tracing in curved spacetime.
 The personal reason for this project is to actually see what happens at different speeds, rather than taking facts from books as is.
 
 ### Current state:
-doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, camera movement vector (0, 0, -1) - forward, light_direction = (-1, -1, -0.5):
+Doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, camera movement vector (0, 0, -1) - forward, light_direction = (-1, -1, -0.5):
 
 | β = 0 | β = 0.1 |
 |:---:|:---:|
