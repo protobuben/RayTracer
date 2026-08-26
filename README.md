@@ -44,7 +44,7 @@ Program outputs a .ppm file. Can be opened in VSCode via [Extension](https://mar
 
 ## Build
 ```
-g++ -O2 -Wall main.cpp -o main.exe
+g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 ./main.exe
 ```
 
