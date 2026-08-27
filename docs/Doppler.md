@@ -1,7 +1,24 @@
 ## Definitions
 
+$$
+\begin{aligned}
+&\hat{n}         &&\text{- unit vector of camera movement} \\
+&\beta_r         &&\text{- camera speed as a fraction of } c \\
+&\bar{\beta}_r = \beta_r\hat{n} &&\text{- camera velocity} \\
+&\gamma          &&\text{- Lorentz factor, } 1/\sqrt{1-\beta_r^2} \\
+&\hat{p}         &&\text{- photon propagation direction} \\
+&\hat{d} = -\hat{p} &&\text{- traced ray direction, camera to source} \\
+&a_p = \langle \hat{p}, \hat{n}\rangle, \quad a_d = \langle \hat{d}, \hat{n}\rangle &&\text{- cosines with the direction of motion} \\
+&T,\ T'          &&\text{- emitted and observed period} \\
+&D = T/T'        &&\text{- Doppler factor} \\
+&x,\ t           &&\text{- lab frame coordinates} \\
+&x',\ t'         &&\text{- camera frame coordinates} \\
+&[\ \cdot\ ]     &&\text{- substitution used at this step}
+\end{aligned}
+$$
+
 ## Setting
-Considering light to be a wave in this raytracer, it must be affected by a doppler shift. If you move away from wave, its period lengthens; other direction - shortens. However to properly demonstrate that, we need to derive correct relation ourselves.
+Considering light to be a wave, it must be affected by a doppler shift. If you move away from wave, its period lengthens; other direction - shortens. However to properly demonstrate that, we need to derive correct relation ourselves.
 
 Consider a plane with $x$ axis for space and $t$ axis for time. Light emitter stays still (lab frame), while camera frame moves away from it with speed $\beta _ r$. To use SR formulas easily, we can state that emitter emits two short light flashes with period $T$ between them. 
 
@@ -11,8 +28,8 @@ $$
 \begin{aligned}
 &\Delta t _ {out} = T \\
 &\Delta x _ {out} = 0 \\
-&\Delta x' _ {in} = 0 \quad &\text{- both signals arrive at the same point of the camera frame} \\
-&l \quad &\text{- distance between camera and emitter at } t=0 \\
+&\Delta x' _ {in} = 0 \quad &&\text{- both signals arrive at the same point of the camera frame} \\
+&l \quad &&\text{- distance between camera and emitter at } t=0 \\
 &x_{cam}(t) = l + t\beta _ r
 \end{aligned}
 $$
@@ -27,7 +44,7 @@ Using spacetime interval invariance $\Delta \tau _ {in} ^ 2 = (\Delta t' _ {in})
 $$
 \begin{aligned}
 (\Delta t' _ {in})^2 &= \Delta t _ {in} ^2 - \Delta x _ {in} ^ 2 = \\
-&= |\Delta x _ {in} = \beta _ r \Delta t _ {in}| = \\
+&= [\Delta x _ {in} = \beta _ r \Delta t _ {in}] = \\
 &= \Delta t _ {in} ^ 2 - \beta _ r ^ 2 \Delta t _ {in} ^ 2 = \\
 &= \Delta t _ {in} ^ 2 (1 - \beta _ r ^ 2) \\ 
 \Delta t' _ {in} &= \frac{\Delta t _ {in}}{\gamma}, \quad \gamma = \frac{1}{\sqrt{1-\beta _ r ^ 2}}
@@ -35,24 +52,31 @@ $$
 $$
 
 $\Delta t _ {in}$ can be found using intersections of the photon and camera worldlines:
-||signal 1|signal 2|
-|:--:|:--:|:--:|
-|photon|$x=t$|$x=t-T$|
-|camera|$x=l+t\beta _ r$|$x=l+t\beta _ r$|
+$$
+\begin{aligned}
+& &&\text{signal 1} &&&\text{signal 2} \\
+&\text{photon} &&x=t &&&x=t-T \\
+&\text{camera} &&x=l+t\beta _ r &&&x=l+t\beta _ r
+\end{aligned}
+$$
 
 Solving for reception time:
-|signal 1|signal 2|
-|:--:|:--:|
-|$t=l + t\beta _ r$|$t - T = l + t\beta _ r$|
-|$t - t\beta _ r = l$|$t - t\beta _ r = l + T$|
-|$t(1-\beta _ r)=l$|$t(1-\beta _ r)=l + T$|
-|$t = \frac{l}{1-\beta} _ r$|$t = \frac{l + T}{1-\beta} _ r$|
+
+$$
+\begin{aligned}
+&\text{signal 1} &&\text{signal 2} \\
+&t=l + t\beta _ r &&t - T = l + t\beta _ r \\
+&t - t\beta _ r = l &&t - t\beta _ r = l + T \\
+&t(1-\beta _ r)=l &&t(1-\beta _ r)=l + T \\
+&t = \frac{l}{1-\beta _ r} &&t = \frac{l + T}{1-\beta _ r} \\
+\end{aligned}
+$$
 
 Therefore difference between them is
 
 $$
 \begin{aligned}
-&\Delta t _ {in} = \frac{l + T}{1-\beta} _ r - \frac{l}{1-\beta} _ r = \frac{T}{1-\beta} _ r.
+&\Delta t _ {in} = \frac{l + T}{1-\beta _ r} - \frac{l}{1-\beta _ r} = \frac{T}{1-\beta _ r}.
 \end{aligned}
 $$
 
@@ -61,14 +85,14 @@ And finally solving for a $\Delta t' _ {in}$:
 $$
 \begin{aligned}
 \Delta t' _ {in} &= \frac{T}{\gamma (1-\beta _ r)} = \\
-&= \frac{T}{1-\beta} _ r\sqrt{1-\beta _ r ^ 2} = \\
-&= T\frac{\sqrt{1-\beta} _ r\sqrt{1+\beta} _ r}{1-\beta} _ r = \\
-&= T\sqrt{\frac{1+\beta _ r} {1-\beta} _ r} = T' \\
-\implies \sqrt{\frac{1+\beta _ r}{1-\beta} _ r} &= \frac{T'}{T} = \frac{(1/\nu')}{(1/\nu)} = \frac{\nu}{\nu'} = \frac{1}{D}
+&= \frac{T}{1-\beta _ r}\sqrt{1-\beta _ r ^ 2} = \\
+&= T\frac{\sqrt{1-\beta _ r}\sqrt{1+\beta _ r}}{1-\beta _ r} = \\
+&= T\sqrt{\frac{1+\beta _ r} {1-\beta _ r}} = T' \\
+\implies \sqrt{\frac{1+\beta _ r}{1-\beta _ r}} &= \frac{T'}{T} = \frac{(1/\nu')}{(1/\nu)} = \frac{\nu}{\nu'} = \frac{1}{D}
 \end{aligned} 
 $$
 
-where $D$ is a Doppler factor $\sqrt{\frac{1-\beta _ r}{1 + \beta} _ r}$.
+where $D$ is a Doppler factor $\sqrt{\frac{1-\beta _ r}{1 + \beta _ r}}$.
 
 Indeed, for $\beta _ r > 0$ period is longer for camera $\implies$ perceived light appears redder; and for $\beta _ r < 0$ period is shorter for camera $\implies$ perceived light appears more blue.
 
@@ -137,7 +161,7 @@ $$
 \end{aligned}
 $$
 
-and them substituting $\hat{p} = -\hat{d}$ we get:
+and then substituting $\hat{p} = -\hat{d}$ we get:
 
 $$
 \begin{aligned}
