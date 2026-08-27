@@ -5,7 +5,7 @@ special relativity first, then geodesic tracing in curved spacetime.
 The personal reason for this project is to actually see what happens at different speeds, rather than taking facts from books as is.
 
 ### Current state:
-Doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, camera movement vector (0, 0, -1) - forward, light_direction = (-1, -1, -0.5):
+Doppler effect demonstration on speeds $\beta = 0$ through $0.5$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
 
 | β = 0 | β = 0.1 |
 |:---:|:---:|
@@ -14,6 +14,10 @@ Doppler effect demonstration on speeds $\beta = 0$, $0.1$, $0.2$ and $0.3$, came
 | β = 0.2 | β = 0.3 |
 |:---:|:---:|
 | ![doppler shift at beta=0.2](renders/doppler_02.png) | ![doppler shift at beta=0.3](renders/doppler_03.png) |
+
+| β = 0.4 | β = 0.5 |
+|:---:|:---:|
+| ![doppler shift at beta=0.4](renders/doppler_04.png) | ![doppler shift at beta=0.5](renders/doppler_05.png) |
 
 Each object emits at a single wavelength, so the Doppler shift is a shift of that one wavelength. This is why the scene has no white or grey surfaces - white light is a broad spectrum, which a monochromatic model cannot represent. Colours are converted to sRGB through the CIE 1931 colour matching functions (Wyman, Sloan & Shirley analytic fit), then desaturated into gamut and gamma-corrected.
 
