@@ -5,15 +5,15 @@ $$
 &\beta _ r \text{ - relative speed between frames as fraction of } c \\
 &x,\ y,\ t \text{ - units in lab frame} \\
 &x',\ y',\ t' \text{ - units in camera frame} \\
-&\bar{p}  \text{ - photon direction in lab frame} \\
-&\bar{p}'  \text{ - photon direction in camera frame} \\
-&\bar{d}  \text{ - ray direction in lab frame} \\
-&\bar{d}'  \text{ - ray direction in camera frame} \\
+&\hat{p}  \text{ - photon direction in lab frame} \\
+&\hat{p}'  \text{ - photon direction in camera frame} \\
+&\hat{d}  \text{ - ray direction in lab frame} \\
+&\hat{d}'  \text{ - ray direction in camera frame} \\
 \end{aligned}
 $$
 
 ## Setting
-World is still, camera is moving along $\hat{n}$ with speed $\beta _ r$. Pixel registers photon, that propagated along $\bar{p}'$ in the camera frame; the ray traced for that pixel points the opposite way, $\bar{d}'=-\bar{p}'$. The same photon has a different direction in the lab frame, so to find where it came from we need $\bar{d}$. Aberration is this difference between the same event described in two frames - the photon's path is straight in both; its direction differs.
+World is still, camera is moving along $\hat{n}$ with speed $\beta _ r$. Pixel registers photon, that propagated along $\hat{p}'$ in the camera frame; the ray traced for that pixel points the opposite way, $\hat{d}'=-\hat{p}'$. The same photon has a different direction in the lab frame, so to find where it came from we need $\hat{d}$. Aberration is this difference between the same event described in two frames - the photon's path is straight in both; its direction differs.
 
 ## Scalar derivation
 Simpler problem:
@@ -79,13 +79,13 @@ $$
 $$
 
 ## Vector form
-The scalar result gives the angle to $\hat{n}$ (if we take $\hat{n}$ as $x$ axis), but the renderer requires a vector. Let's decompose photon direction vector $\bar{p}$ into components along and across the motion:
+The scalar result gives the angle to $\hat{n}$ (if we take $\hat{n}$ as $x$ axis), but the renderer requires a vector. Let's decompose photon direction vector $\hat{p}$ into components along and across the motion:
 
 $$
 \begin{aligned}
-&a _ p := \langle \bar{p}, \hat{n} \rangle \\
+&a _ p := \langle \hat{p}, \hat{n} \rangle \\
 &\bar{p} _ \parallel = a _ p\hat{n} \\
-&\bar{p} _ \perp = \bar{p}-a _ p\hat{n} \\
+&\bar{p} _ \perp = \hat{p}-a _ p\hat{n} \\
 \end{aligned}
 $$
 
@@ -102,30 +102,30 @@ A direction is a displacement per unit time, so dividing spatial part by $\Delta
 
 $$
 \begin{aligned}
-\bar{p}' &= \frac{\Delta x' \hat{n} + \bar{p} _ \perp}{\Delta t'} = \\
-&= \frac{(a _ p\cosh{\theta _ r} - \sinh{\theta _ r})\hat{n} + \bar{p} - a _ p\hat{n}}{\cosh{\theta _ r} - a _ p\sinh{\theta _ r}}= \\
+\hat{p}' &= \frac{\Delta x' \hat{n} + \bar{p} _ \perp}{\Delta t'} = \\
+&= \frac{(a _ p\cosh{\theta _ r} - \sinh{\theta _ r})\hat{n} + \hat{p} - a _ p\hat{n}}{\cosh{\theta _ r} - a _ p\sinh{\theta _ r}}= \\
 &= \left| \sinh{\theta _ r} = \beta _ r\cosh{\theta _ r},\quad \cosh{\theta _ r} = \frac{1}{\sqrt{1-\beta _ r^2}} \right| = \\
-&= \frac{(a _ p - \beta _ r)\hat{n} + \sqrt{1-\beta _ r^2}\,(\bar{p} - a _ p\hat{n})}{1 - a _ p\beta _ r}.
+&= \frac{(a _ p - \beta _ r)\hat{n} + \sqrt{1-\beta _ r^2}\,(\hat{p} - a _ p\hat{n})}{1 - a _ p\beta _ r}.
 \end{aligned}
 $$
 
-Note that this has no special case at $\bar{p} \parallel \hat{n}$ - denominator vanishes only at $a _ p=1/\beta _ r$, which is unreachable since a frame's worldline is timelike -- $\beta _ r<1 \implies 1/\beta _ r > 1 \geq a _ p$.
+Note that this has no special case at $\hat{p} \parallel \hat{n}$ - denominator vanishes only at $a _ p=1/\beta _ r$, which is unreachable since a frame's worldline is timelike -- $\beta _ r<1 \implies 1/\beta _ r > 1 \geq a _ p$.
 
 ## What renderer needs
 
 The derivation above transforms the photon's **propagation** direction. A traced ray points the opposite way - from the camera towards the source.
 
-Renderer knows $\bar{d}'$ (it's set by the pixel) and needs $\bar{d}$ (lab frame, where the scene is static). Going camera $\to$ lab means the lab moves at $-\beta _ r$ relative to the camera, so the inverse transform is obtained by substituting $\beta _ r \to -\beta _ r$ into the formula above:
+Renderer knows $\hat{d}'$ (it's set by the pixel) and needs $\hat{d}$ (lab frame, where the scene is static). Going camera $\to$ lab means the lab moves at $-\beta _ r$ relative to the camera, so the inverse transform is obtained by substituting $\beta _ r \to -\beta _ r$ into the formula above:
 
 $$
-\bar{p} = \frac{(a _ {p'} + \beta _ r)\hat{n} + \sqrt{1-\beta _ r^2}\,(\bar{p}' - a _ {p'}\hat{n})}{1 + a _ {p'}\beta _ r}, \quad a _ {p'} = \langle \bar{p}', \hat{n} \rangle
+\hat{p} = \frac{(a _ {p'} + \beta _ r)\hat{n} + \sqrt{1-\beta _ r^2}\,(\hat{p}' - a _ {p'}\hat{n})}{1 + a _ {p'}\beta _ r}, \quad a _ {p'} = \langle \hat{p}', \hat{n} \rangle
 $$
 
-Substituting $\bar{p}' = -\bar{d}'$, hence $a _ {p'} = -a$ with $a = \langle \bar{d}', \hat{n} \rangle$, and negating the result:
+Substituting $\hat{p}' = -\hat{d}'$, hence $a _ {p'} = -a$ with $a = \langle \hat{d}', \hat{n} \rangle$, and negating the result:
 
 $$
-\bar{d} = -\bar{p}
-= \frac{(a - \beta _ r)\hat{n} + \sqrt{1-\beta _ r^2}\,(\bar{d}' - a\hat{n})}{1 - a\beta _ r}
+\hat{d} = -\hat{p}
+= \frac{(a - \beta _ r)\hat{n} + \sqrt{1-\beta _ r^2}\,(\hat{d}' - a\hat{n})}{1 - a\beta _ r}
 $$
 
 The two sign flips cancel, so the implemented formula is identical to the forward one. This is worth stating explicitly - substituting $-\beta _ r$ alone without reversing the ray gives aberration in opposite direction.
@@ -135,12 +135,12 @@ The two sign flips cancel, so the implemented formula is identical to the forwar
 - $\beta _ r = 0$: reduces to 
 
 $$
-\bar{d} = a\hat{n} + \bar{d}' - a\hat{n} = \bar{d}'
+\hat{d} = a\hat{n} + \hat{d}' - a\hat{n} = \hat{d}'
 $$
 
 no aberration;
 
-- $\bar{d}' = \hat{n}$ -- ray along movement direction ($a=1$): gives 
+- $\hat{d}' = \hat{n}$ -- ray along movement direction ($a=1$): gives 
 
 $$
 \frac{(1-\beta _ r)\hat{n}}{1-\beta _ r} = \hat{n}
@@ -151,21 +151,21 @@ the axis of motion is fixed;
 - $a=0$ -- ray perpendicular to camera frame movement direction: gives 
 
 $$
-\bar{d} = -\beta  _  r\hat{n} + \sqrt{1-\beta _ r^2}\,\bar{d}'
+\hat{d} = -\beta  _  r\hat{n} + \sqrt{1-\beta _ r^2}\,\hat{d}'
 $$
 
 the lab direction is tilted against the motion, so what the camera sees ahead of it actually lies to the side. Equivalently in scalar case $\cos{\phi} = 0 \implies \cos{\phi'} = -\beta _ r$ -- the whole sky squeezes towards the direction of travel;
 
-- Norm: since 
+- Norm: let $\bar{d}'_\perp = \hat{d}' - a\hat{n}$ be the transverse part of the
+incoming ray. It is orthogonal to $\hat{n}$ by construction, so by the
+Pythagorean theorem and $|\hat{d}'| = 1$:
+
+$$|\bar{d}'_\perp|^2 = 1 - a^2$$
+
+Then
 
 $$
-\bar{d}  _  \perp \perp \hat{n}, \qquad |\bar{d}  _  \perp|^2 = 1 - a^2,
-$$
-
-due to Pythagorean theorem for orthogonal decomposition and $|\bar{d}'| = 1$ we get:
-
-$$
-|\bar{d}|^2 = \frac{(a-\beta _ r)^2 + (1-\beta _ r^2)(1-a^2)}{(1-a\beta _ r)^2}
+|\hat{d}|^2 = \frac{(a-\beta _ r)^2 + (1-\beta _ r^2)(1-a^2)}{(1-a\beta _ r)^2}
 = \frac{1 - 2a\beta _ r + a^2\beta _ r^2}{(1-a\beta _ r)^2} = 1
 $$
 
