@@ -24,7 +24,9 @@ Each object emits at a single wavelength, so the Doppler shift is a shift of tha
 - [x] Hittable abstraction
 - [x] Shadows 
 - [x] Coloring
-- [ ] SR: [aberration](./docs/aberration.md), Doppler, beaming
+- [x] SR: [aberration](./docs/aberration.md)
+- [x] SR: Doppler
+- [ ] SR: Beaming
 - [ ] Schwarzschild geodesics
 - [ ] Kerr
 
