@@ -52,6 +52,7 @@ $$
 $$
 
 $\Delta t _ {in}$ can be found using intersections of the photon and camera worldlines:
+
 $$
 \begin{aligned}
 & &&\text{signal 1} &&&\text{signal 2} \\
