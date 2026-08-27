@@ -30,6 +30,8 @@ Each object emits at a single wavelength, so the Doppler shift is a shift of tha
 - [ ] Schwarzschild geodesics
 - [ ] Kerr
 
+The last two items depend on differential geometry coursework and self-study, so they're paced by that rather than by the code.
+
 ### Rendering improvements
 Independent of the physics track above
 
