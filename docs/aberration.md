@@ -1,14 +1,14 @@
 ## Definitions
 $$
 \begin{aligned}
-&\hat{n} \text{ - unit camera movement direction} \\
-&\beta _ r \text{ - relative speed between frames as fraction of } c \\
-&x,\ y,\ t \text{ - units in lab frame} \\
-&x',\ y',\ t' \text{ - units in camera frame} \\
-&\hat{p}  \text{ - photon direction in lab frame} \\
-&\hat{p}'  \text{ - photon direction in camera frame} \\
-&\hat{d}  \text{ - ray direction in lab frame} \\
-&\hat{d}'  \text{ - ray direction in camera frame} \\
+&\hat{n} &&\text{ - unit camera movement direction} \\
+&\beta _ r &&\text{ - relative speed between frames as fraction of } c \\
+&x,\ y,\ t &&\text{ - units in lab frame} \\
+&x',\ y',\ t' &&\text{ - units in camera frame} \\
+&\hat{p}  &&\text{ - photon direction in lab frame} \\
+&\hat{p}'  &&\text{ - photon direction in camera frame} \\
+&\hat{d}  &&\text{ - ray direction in lab frame} \\
+&\hat{d}'  &&\text{ - ray direction in camera frame} \\
 \end{aligned}
 $$
 
