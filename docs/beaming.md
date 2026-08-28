@@ -1,5 +1,6 @@
 ## Definitions
 
+
 $$
 \begin{aligned}
 &\hat{n}         &&\text{- unit vector of camera movement} \\
@@ -10,10 +11,10 @@ $$
 &a_p = \langle \hat{p}, \hat{n}\rangle, \quad a_d = \langle \hat{d}, \hat{n}\rangle &&\text{- cosines with the direction of motion} \\
 &D               &&\text{- Doppler factor} \\
 &\Omega               &&\text{- Solid angle} \\
-
 &[\ \cdot\ ]     &&\text{- substitution used at this step}
 \end{aligned}
 $$
+
 
 ## Setting
 
