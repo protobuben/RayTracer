@@ -57,17 +57,42 @@ g++ -std=c++17 -O2 -Wall main.cpp -o main.exe
 ```
 
 ## Archive
+
+**Sphere detection**. Finding intersection of a ray and a sphere for each pixel
 ![sphere_detection](renders/sphere_detection.png)
+
+---
+**Brightness** is a dot product between object's normal in that point and -light_direction 
+
 ![Lambertian_shading_on_a_sphere](renders/Lambertian_shading_on_a_sphere.png)
+---
+Made a **hittable_list** object that stores all the scene objects. hittable_object.hit() considers all the objects within it and provides the closest hit
+
 ![sphere_cluster](renders/sphere_cluster.png)
+---
+Added finite **plane** object
+
 ![planes](renders/planes.png)
+---
+**Shadow**. Shot another ray in direction of object's normal in that point and see if it is blocked by another object
+
 ![shadows](renders/shadows.png)
+---
+**Color** is a separate parameter set for each object
+
 ![colors](renders/colors.png)
+---
+**Smoother edges**: for each pixel, shot not one but many rays with random offset within that pixel size. Then even out the color
+
 ![smooth_colors](renders/smooth_colors.png)
+---
+**Aberration** demonstration. Camera movement vector (-1, 0, -1) = forward-left diagonal -> world becomes more squeezed to point far in movement direction
+
 ![left_forward_at_beta_08](renders/left_forward_at_beta_08.png)
+---
 
 
-Doppler effect demonstration on speeds $\beta = 0$ through $0.5$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
+**Doppler effect** demonstration on speeds $\beta = 0$ through $0.5$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
 
 | β = 0 | β = 0.1 |
 |:---:|:---:|
@@ -80,3 +105,4 @@ Doppler effect demonstration on speeds $\beta = 0$ through $0.5$, camera movemen
 | β = 0.4 | β = 0.5 |
 |:---:|:---:|
 | ![doppler shift at beta=0.4](renders/doppler_04.png) | ![doppler shift at beta=0.5](renders/doppler_05.png) |
+---
