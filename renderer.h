@@ -25,10 +25,15 @@ inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir
 
     const ray shadow_ray(record.p, -light_dir);
     hit_record tmp;
-    const double brightness = std::max(dot(-light_dir, record.normal), 0.0);
+
+    const double D = doppler_factor(r, cam_dir, beta);
+
+    double brightness = std::max(dot(-light_dir, record.normal), 0.0);
+    brightness *= beaming_factor(D);
+
     const bool in_shadow = world.hit(shadow_ray, eps, infinity, tmp);
 
-    double lambda_observed = record.wavelength * doppler_factor(r, cam_dir, beta);
+    double lambda_observed = record.wavelength / D;
     const vec3 color = xyz_to_srgb(wavelength_to_xyz(lambda_observed));
 
     if (in_shadow) { return color * 0.1; }
