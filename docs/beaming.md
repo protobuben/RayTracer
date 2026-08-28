@@ -10,7 +10,11 @@ $$
 &\hat{d} = -\hat{p} &&\text{- traced ray direction, camera to source} \\
 &a_p = \langle \hat{p}, \hat{n}\rangle, \quad a_d = \langle \hat{d}, \hat{n}\rangle &&\text{- cosines with the direction of motion} \\
 &D               &&\text{- Doppler factor} \\
+&\nu               &&\text{- frequency} \\
+&E               &&\text{- energy} \\
+&h               &&\text{- Planck constant} \\
 &\Omega               &&\text{- Solid angle} \\
+&[]'               &&\text{- notation for unit in camera frame} \\
 &[\ \cdot\ ]     &&\text{- substitution used at this step}
 \end{aligned}
 $$
