@@ -1,4 +1,5 @@
 ## Definitions
+
 $$
 \begin{aligned}
 &\hat{n}         &&\text{- unit vector of camera movement} \\
@@ -130,6 +131,7 @@ No change in brightness.
 $$
 D^4 = \gamma^4 > 1
 $$
+
 Flying by a lamp that is still, you see it brighter.
 
 - $a _ d = 1, \ \beta _ r > 0$:
@@ -137,6 +139,7 @@ Flying by a lamp that is still, you see it brighter.
 $$
 D^4 = \gamma^4 (1 + \beta _ r)^4
 $$
+
 Maximal increase in brightness.
 
 ## Implementation
