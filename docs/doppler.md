@@ -219,7 +219,7 @@ The period is still stretched even though the source is neither approaching nor 
 
 ## Implementation
 
-[relativity.h](../relativity.h) — `doppler_factor(d, n, beta)`, called from
+[relativity.h](../relativity.h) - `doppler_factor(d, n, beta)`, called from
 `ray_color` after the hit is resolved. The wavelength stored on the object is
 the emitted one; the observed wavelength is
 
@@ -234,9 +234,9 @@ and only $\lambda_{obs}$ is passed to `wavelength_to_xyz`.
 Two things worth restating, since both are easy to get backwards:
 
 - The factor applied in code is $\frac{T'}{T} = \frac{1}{D}$. Wavelength scales with the period, frequency with its inverse.
-- $a_d$ is taken in the **lab** frame — which is exactly what `r.direction` already holds, since `camera::project` applies aberration before the ray is constructed. No extra transformation is needed at this point.
+- $a _ d$ is taken in the **lab** frame - which is exactly what `r.direction` already holds, since `camera::project` applies aberration before the ray is constructed. 
 
 Wavelengths shifted outside the visible range fall to zero naturally: the CIE
 fits vanish there, so the object simply goes black. This is correct for a
-monochromatic source but not for a real one — see the note on the model's
+monochromatic source but not for a real one - see the note on the model's
 limits in the README.

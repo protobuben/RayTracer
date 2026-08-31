@@ -10,7 +10,11 @@ $$
 &\hat{d} = -\hat{p} &&\text{- traced ray direction, camera to source} \\
 &a_p = \langle \hat{p}, \hat{n}\rangle, \quad a_d = \langle \hat{d}, \hat{n}\rangle &&\text{- cosines with the direction of motion} \\
 &D               &&\text{- Doppler factor} \\
+&\nu               &&\text{- frequency} \\
+&E               &&\text{- energy} \\
+&h               &&\text{- Planck constant} \\
 &\Omega               &&\text{- Solid angle} \\
+&[]'               &&\text{- notation for unit in camera frame} \\
 &[\ \cdot\ ]     &&\text{- substitution used at this step}
 \end{aligned}
 $$
@@ -55,6 +59,7 @@ In lab, emitter emits photons at some rate $N$ (times per second); every interva
 Note that this factor and the previous one came from the same fact - every interval changes by $D$, but they are not the same quantity: one is about photon's energy, and other is about the amount of photons.
 
 This concludes the formula above:
+
 
 $$
 \begin{aligned}
