@@ -55,6 +55,7 @@ In lab, emitter emits photons at some rate $N$ (times per second); every interva
 Note that this factor and the previous one came from the same fact - every interval changes by $D$, but they are not the same quantity: one is about photon's energy, and other is about the amount of photons.
 
 This concludes the formula above:
+
 $$
 \begin{aligned}
 \frac{(\text{energy per second})'}{(\text{energy per second})} = \frac{N'}{N} \cdot \frac{E'}{E} = D^2
