@@ -27,15 +27,15 @@ inline double apply_gamma(double v) {
 inline double x_hat(double lambda) {
     const double tosquare1 = (lambda-595.8)/33.33;
     const double tosquare2 = (lambda-446.8)/19.44;
-    return 1.065*exp(-.5 * tosquare1*tosquare1) + 0.366*exp(-.5 * tosquare2*tosquare2);
+    return 1.065*std::exp(-.5 * tosquare1*tosquare1) + 0.366*std::exp(-.5 * tosquare2*tosquare2);
 } 
 inline double y_hat(double lambda) {
     const double tosquare = std::log(lambda/556.3)/0.075;
-    return 1.014*exp(-.5 * tosquare*tosquare);
+    return 1.014*std::exp(-.5 * tosquare*tosquare);
 } 
 inline double z_hat(double lambda) {
     const double tosquare = std::log(lambda/449.8)/0.051;
-    return 1.839*exp(-.5 * tosquare*tosquare);
+    return 1.839*std::exp(-.5 * tosquare*tosquare);
 } 
 
 inline vec3 wavelength_to_xyz(double lambda) {
