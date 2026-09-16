@@ -7,7 +7,9 @@
 #include "hittable.h"
 #include "constants.h"
 #include "color.h"
-
+#include "blackhole.h"
+#include "geodesic.h"
+#include "schwarzschild.h"
 
 inline void write_color(std::ostream& out, const vec3& pixel_color) {
 
@@ -18,12 +20,50 @@ inline void write_color(std::ostream& out, const vec3& pixel_color) {
     out << r << " " << g << " " << b << "\n";
 }
 
+
+enum class march_result { hit, escaped, horizon };
+
+struct march_out {
+    march_result result;
+    hit_record record;
+    vec3 dir;
+};
+
+
+inline march_out march(const vec3& origin, const vec3& dir, const hittable& world, const blackhole& bh) {
+    geo_frame fr;
+    gstate s = from_camera_to_gstate(origin, dir, bh.center, bh.rs, fr);
+    march_out out;
+
+    vec3 a = to_cartesian(s, bh.center, fr);
+    for (int i = 0; i < bh.max_steps; i++) {
+        const double step = bh.h * std::max(1.0, s.x[1] / (4.0 * bh.rs));
+        rk4_step(s, bh.rs, step);
+        const vec3 b = to_cartesian(s, bh.center, fr);
+ 
+        if (world.hit(ray(a, b-a), 0.0, 1.0, out.record)) {
+            out.result = march_result::hit;
+            return out;
+        }
+        if (s.x[1] < 1.05 * bh.rs) { out.result = march_result::horizon; return out; }
+        if (s.x[1] > bh.escape_r) {
+            out.result = march_result::escaped;
+            out.dir = b-a;
+            return out;
+        }
+        a = b;
+    }
+    out.result = march_result::horizon;
+    return out;
+}
+
+
 inline uint32_t hash32(uint32_t x) {
     x ^= x >> 16; x *= 0x7feb352d; x ^= x >> 15; x *= 0x846ca68b; x ^= x >> 16; return x;
 }
 
 inline bool star_background(const vec3& dir, double& lambda, double& gain) {
-    const int N = 220; const double density = 0.2;
+    const int N = 220; const double density = .03;
 
     const vec3 d = unit_vec3(dir);
     const double ax = std::fabs(d.x), ay = std::fabs(d.y), az = std::fabs(d.z);
@@ -43,22 +83,28 @@ inline bool star_background(const vec3& dir, double& lambda, double& gain) {
     return true;
 }
 
-inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir, const vec3& cam_dir, double beta) {
-    hit_record record;
-
+inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir, const vec3& cam_dir, double beta, const blackhole& bh) {
     const double D = doppler_factor(r, cam_dir, beta);
     double brightness = beaming_factor(D);
     
     vec3 color = vec3();
     bool in_shadow = false;
 
-    if (world.hit(r, eps, infinity, record)) { 
-        brightness *= std::max(dot(-light_dir, record.normal), 0.0);
-        const ray shadow_ray(record.p, -light_dir);
-        hit_record tmp;
-        in_shadow = world.hit(shadow_ray, eps, infinity, tmp);
-        const double lambda_observed = record.wavelength / D;
-        color = xyz_to_srgb(wavelength_to_xyz(lambda_observed));
+    const march_out m = march(r.origin, r.direction, world, bh);
+
+    if (m.result == march_result::horizon) return vec3();
+
+    if (m.result == march_result::hit) { 
+        if (m.record.emissive) {
+            color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / D));
+            // brightness stays as beaming_factor(D) alone - no dot product, no shadow ray
+        } else {
+            brightness *= std::max(dot(-light_dir, m.record.normal), 0.0);
+            const ray shadow_ray(m.record.p, -light_dir);
+            hit_record tmp;
+            in_shadow = world.hit(shadow_ray, eps, infinity, tmp);
+            color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / D));
+        }
     } else {
         double lambda, gain;
         if (!star_background(r.direction, lambda, gain)) return vec3();
@@ -70,7 +116,7 @@ inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir
     return color * (brightness);
 }
 
-inline void render (std::ostream& out, const camera& cam, const hittable& world, const vec3& light_dir, const double samples = 8) {
+inline void render (std::ostream& out, const camera& cam, const hittable& world, const vec3& light_dir, const blackhole& bh, const double samples = 8) {
     const int horizontal = cam.resX;
     const int vertical = cam.resY;
     out << "P3\n" << horizontal << " " << vertical << "\n255\n";
@@ -79,7 +125,7 @@ inline void render (std::ostream& out, const camera& cam, const hittable& world,
         for (int i = 0; i < horizontal; i++) {
             vec3 pixel_color;
             for (int s = 0; s < samples; s++){
-                pixel_color += ray_color(cam.project(i, j, (random_double()-.5), (random_double()-.5)), world, light_dir, cam.velocity_dir, cam.beta);
+                pixel_color += ray_color(cam.project(i, j, (random_double()-.5), (random_double()-.5)), world, light_dir, cam.velocity_dir, cam.beta, bh);
             }
 
             write_color(out, (pixel_color/samples));
