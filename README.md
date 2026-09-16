@@ -5,6 +5,10 @@ special relativity first, then geodesic tracing in curved spacetime.
 The personal reason for this project is to actually see what happens at different speeds, rather than taking facts from books as is.
 
 ### Current state:
+Schwarzschild black hole render through RK4 geodesic integration with SR effects applied to gas disk:
+
+![render](renders/schwarzchild_full_SR_CORRECTED.png)
+
 Full SR demonstration (Doppler + aberration + beaming) on speeds $\beta = 0$ through $0.76$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
 
 ![render](renders/beta_0_to_076_and_sky.gif)
@@ -21,7 +25,7 @@ Each object emits at a single wavelength, so the Doppler shift is a shift of tha
 - [x] SR: [Aberration](./docs/aberration.md)
 - [x] SR: [Doppler](./docs/doppler.md)
 - [x] SR: [Beaming](./docs/beaming.md)
-- [ ] Schwarzschild geodesics
+- [x] Schwarzschild geodesics
 - [ ] Kerr
 
 The last two items depend on differential geometry coursework and self-study, so they're paced by that rather than by the code.

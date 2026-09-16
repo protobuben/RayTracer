@@ -27,6 +27,7 @@ struct march_out {
     march_result result;
     hit_record record;
     vec3 dir;
+    double r_hit = infinity;
 };
 
 
@@ -42,7 +43,11 @@ inline march_out march(const vec3& origin, const vec3& dir, const hittable& worl
         const vec3 b = to_cartesian(s, bh.center, fr);
  
         if (world.hit(ray(a, b-a), 0.0, 1.0, out.record)) {
+            const double rr = (out.record.p - bh.center).length();
+
             out.result = march_result::hit;
+            out.r_hit = rr;
+            out.dir = b-a;
             return out;
         }
         if (s.x[1] < 1.05 * bh.rs) { out.result = march_result::horizon; return out; }
@@ -84,36 +89,36 @@ inline bool star_background(const vec3& dir, double& lambda, double& gain) {
 }
 
 inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir, const vec3& cam_dir, double beta, const blackhole& bh) {
-    const double D = doppler_factor(r, cam_dir, beta);
-    double brightness = beaming_factor(D);
-    
-    vec3 color = vec3();
-    bool in_shadow = false;
-
     const march_out m = march(r.origin, r.direction, world, bh);
+    const double r_cam = (r.origin - bh.center).length();
 
     if (m.result == march_result::horizon) return vec3();
 
-    if (m.result == march_result::hit) { 
-        if (m.record.emissive) {
-            color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / D));
-            // brightness stays as beaming_factor(D) alone - no dot product, no shadow ray
-        } else {
-            brightness *= std::max(dot(-light_dir, m.record.normal), 0.0);
-            const ray shadow_ray(m.record.p, -light_dir);
-            hit_record tmp;
-            in_shadow = world.hit(shadow_ray, eps, infinity, tmp);
-            color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / D));
-        }
-    } else {
+    const double gravshift = gravitational_wavelength_shift(bh.rs, r_cam, m.r_hit);
+    if (m.result == march_result::escaped) {
         double lambda, gain;
+        const double D = doppler_factor(r.direction, cam_dir, beta);
+        double brightness = beaming_factor(D);
         if (!star_background(r.direction, lambda, gain)) return vec3();
-        color = xyz_to_srgb(wavelength_to_xyz(lambda / D));
-        brightness *= gain;
+        const vec3 color = xyz_to_srgb(wavelength_to_xyz(lambda / (D * gravshift)));
+        return color * brightness * gain;
     }
 
-    if (in_shadow) { return color * 0.1; }
-    return color * (brightness);
+    // hit
+    const double D = doppler_factor(r.direction, cam_dir, beta)
+                    * gravshift
+                    * doppler_from_source(m.dir, m.record.velocity);
+    double brightness = beaming_factor(D);
+    
+    if (!m.record.emissive) {
+        brightness *= std::max(dot(-light_dir, m.record.normal), 0.0);
+        const ray shadow_ray(m.record.p, -light_dir);
+        hit_record tmp;
+        if (world.hit(shadow_ray, eps, infinity, tmp)) brightness * .1;
+    }
+    
+    const vec3 color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / (D * gravshift)));
+    return color * brightness;
 }
 
 inline void render (std::ostream& out, const camera& cam, const hittable& world, const vec3& light_dir, const blackhole& bh, const double samples = 8) {

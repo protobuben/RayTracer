@@ -7,6 +7,7 @@ struct hit_record {
     double wavelength;
     double t;
     bool emissive = false;
+    vec3 velocity = vec3();
 };
 
 struct hittable {

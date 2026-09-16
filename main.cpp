@@ -65,17 +65,17 @@ int main() {
     blackhole bh;
     const vec3 light_direction = vec3(.0, -1.0, -1);
     
-    const vec3 eye(0.0, 0.2, 16.0);
+    const vec3 eye(0.0, 0.3, 16.0);
     cam_config cfg(
         unit_vec3(bh.center - eye), // look at
-        1200/5, // x
-        500/5, // y
+        1920, // x
+        1080, // y
         eye, // from
-        vec3(), // vel dir
+        vec3(-1, 0, -1), // vel dir
         0.0 // beta
     );
 
-    const int samples = 4;
+    const int samples = 8;
  
     // export_series
     const int frames = 60;
@@ -99,7 +99,7 @@ int main() {
     // world.add(std::make_shared<plane>(vec3(0.0, 0.0, 1.0), vec3(0, 0, -15), 20, 20, 650));
 
 
-    world.add(std::make_shared<disk>(bh.center, unit_vec3(vec3(-.07, 1, 0)), 3.0*bh.rs, 14.0*bh.rs, 420.0, 690.0));
+    world.add(std::make_shared<disk>(bh, bh.center, unit_vec3(vec3(-.1, 1, 0)), 3.0*bh.rs, 14.0*bh.rs, 420.0, 690.0));
     
     // world.add(std::make_shared<sphere>(vec3(1,0,-2), 3, 500));
 
