@@ -31,3 +31,5 @@ inline vec3 cross(const vec3& u, const vec3& v) { return vec3(u.y*v.z - v.y*u.z,
 inline void cerr_vec3(const vec3& v) {
     std::cerr << v.x << " " << v.y << " " << v.z << "\n";
 }
+
+inline vec3 lerp_vec3(const vec3& u, const vec3& v, double alpha) { return u*(1-alpha) + v*alpha; }

@@ -9,6 +9,8 @@ Schwarzschild black hole render through RK4 geodesic integration with SR effects
 
 ![render](renders/schwarzchild_full_SR_CORRECTED.png)
 
+![render](renders/schwarzschild_final_zoom_in_out.gif)
+
 Full SR demonstration (Doppler + aberration + beaming) on speeds $\beta = 0$ through $0.76$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
 
 ![render](renders/beta_0_to_076_and_sky.gif)
@@ -25,21 +27,15 @@ Each object emits at a single wavelength, so the Doppler shift is a shift of tha
 - [x] SR: [Aberration](./docs/aberration.md)
 - [x] SR: [Doppler](./docs/doppler.md)
 - [x] SR: [Beaming](./docs/beaming.md)
-- [x] Schwarzschild geodesics
+- [x] Schwarzschild: Metric + Christoffel symbols
+- [x] Schwarzschild: Camera ray <-> geodesic state
+- [x] Schwarzschild: RK4 + marching + intersection
+- [x] Schwarzschild: Gravitational redshift
+- [x] Schwarzschild: SR on disk
+- [ ] Blackbody emission
+- [ ] Reissner–Nordström
 - [ ] Kerr
-
-The last two items depend on differential geometry coursework and self-study, so they're paced by that rather than by the code.
-
-### Rendering improvements
-Independent of the physics track above
-
-- [ ] Point light sources with distance falloff
-- [ ] Emissive objects (visible light sources)
-- [ ] Reflections (recursive ray_color)
-- [ ] Full spectral rendering instead of single wavelength
-- [ ] Multithreading (std::thread over scanlines)
-- [ ] GPU port
-- [ ] Real-time viewer with free camera
+- [ ] Kerr-Newman
 
 ## Usage
 Program outputs a .ppm file. Can be opened in VSCode via [Extension](https://marketplace.visualstudio.com/items?itemName=ngtystr.ppm-pgm-viewer-for-vscode)
