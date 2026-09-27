@@ -68,7 +68,7 @@ inline uint32_t hash32(uint32_t x) {
 }
 
 inline bool star_background(const vec3& dir, double& lambda, double& gain) {
-    const int N = 220; const double density = .03;
+    const int N = 221; const double density = .4;
 
     const vec3 d = unit_vec3(dir);
     const double ax = std::fabs(d.x), ay = std::fabs(d.y), az = std::fabs(d.z);
@@ -94,18 +94,18 @@ inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir
 
     if (m.result == march_result::horizon) return vec3();
 
-    const double gravshift = gravitational_wavelength_shift(bh.rs, r_cam, m.r_hit);
+    const double gravshift = grav_g(bh.rs, r_cam, m.r_hit);
     if (m.result == march_result::escaped) {
         double lambda, gain;
-        const double D = doppler_factor(r.direction, cam_dir, beta);
+        const double D = doppler_factor(m.dir, cam_dir, beta) * gravshift;
         double brightness = beaming_factor(D);
-        if (!star_background(r.direction, lambda, gain)) return vec3();
-        const vec3 color = xyz_to_srgb(wavelength_to_xyz(lambda / (D * gravshift)));
+        if (!star_background(m.dir, lambda, gain)) return vec3();
+        const vec3 color = xyz_to_srgb(wavelength_to_xyz(lambda / D));
         return color * brightness * gain;
     }
 
     // hit
-    const double D = doppler_factor(r.direction, cam_dir, beta)
+    const double D = doppler_factor(m.dir, cam_dir, beta)
                     * gravshift
                     * doppler_from_source(m.dir, m.record.velocity);
     double brightness = beaming_factor(D);
@@ -117,7 +117,7 @@ inline vec3 ray_color(const ray& r, const hittable& world, const vec3& light_dir
         if (world.hit(shadow_ray, eps, infinity, tmp)) brightness * .1;
     }
     
-    const vec3 color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / (D * gravshift)));
+    const vec3 color = xyz_to_srgb(wavelength_to_xyz(m.record.wavelength / D));
     return color * brightness;
 }
 

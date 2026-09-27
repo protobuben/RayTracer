@@ -19,7 +19,7 @@ inline double beaming_factor(double doppler) {
 }
 
 // Schwarzschild
-inline double gravitational_wavelength_shift(double rs, double r_out, double r_in) {
+inline double grav_g(double rs, double r_out, double r_in) {
     return std::sqrt((1 - rs/r_in)/(1 - rs/r_out));
 }
 

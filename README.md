@@ -7,9 +7,9 @@ The personal reason for this project is to actually see what happens at differen
 ### Current state:
 Schwarzschild black hole render through RK4 geodesic integration with SR effects applied to gas disk:
 
-![render](renders/schwarzchild_full_SR_CORRECTED.png)
+![render](renders/schwarzschild_sideways_with_stars_working.png)
 
-![render](renders/schwarzschild_final_zoom_in_out.gif)
+![render](renders/Schwarzschild_zoom_inout_skyfixed.gif)
 
 Full SR demonstration (Doppler + aberration + beaming) on speeds $\beta = 0$ through $0.76$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
 

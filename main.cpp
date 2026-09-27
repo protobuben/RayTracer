@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
     blackhole bh;
     const vec3 light_direction = vec3(.0, -1.0, -1);
     
-    const vec3 eye(0.0, 3.0, 9.0);
+    const vec3 eye(0.0, 0.3, 16.0);
     const double resX = 1920;
     const double resY = 1080;
     
@@ -115,7 +115,7 @@ int main(int argc, char** argv) {
         0.0 // beta
     );
 
-    const int samples = 8;
+    const int samples = 16;
  
     // export_series
     const int frames = 240;
@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
     // world.add(std::make_shared<plane>(vec3(0.0, 0.0, 1.0), vec3(0, 0, -15), 20, 20, 650));
 
 
-    world.add(std::make_shared<disk>(bh, bh.center, unit_vec3(vec3(0, 1, 0)), 3.0*bh.rs, 14.0*bh.rs, 420.0, 690.0));
+    world.add(std::make_shared<disk>(bh, bh.center, unit_vec3(vec3(-0.1, 1, 0)), 3.0*bh.rs, 14.0*bh.rs, 420.0, 690.0));
     
     // world.add(std::make_shared<sphere>(vec3(1,0,-2), 3, 500));
 
@@ -150,8 +150,8 @@ int main(int argc, char** argv) {
     //     }
     // }
 
-    // export_ppm(world, bh, light_direction, samples, cfg);
-    export_series(world, bh, light_direction, samples, frames, end_cfg, ping_pong, cfg);
+    export_ppm(world, bh, light_direction, samples, cfg);
+    // export_series(world, bh, light_direction, samples, frames, end_cfg, ping_pong, cfg);
 
     return 0;
 }
