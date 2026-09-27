@@ -9,8 +9,6 @@ Schwarzschild black hole render through RK4 geodesic integration with SR effects
 
 ![render](renders/schwarzschild_sideways_with_stars_working.png)
 
-![render](renders/Schwarzschild_zoom_inout_skyfixed.gif)
-
 Full SR demonstration (Doppler + aberration + beaming) on speeds $\beta = 0$ through $0.76$, camera movement vector (1, 0, -1) = forward-right diagonal, light_direction = (-1, -1, -0.5):
 
 ![render](renders/beta_0_to_076_and_sky.gif)
