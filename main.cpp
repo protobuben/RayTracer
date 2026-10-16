@@ -4,19 +4,16 @@
 #include <iomanip>
 #include <filesystem>
 #include <cmath>
-#include <vector>
 #include <memory>
 
 #include "vec3.h"
-#include "ray.h"
 #include "camera.h"
-#include "sphere.h"
 #include "disk.h"
+#include "sphere.h"
 #include "plane.h"
 #include "hittable.h"
 #include "hittable_list.h"
 #include "renderer.h"
-#include "color.h"
 #include "blackhole.h"
 
 std::string frame_path(int i) {
@@ -30,18 +27,18 @@ void export_ppm(const hittable& world, const blackhole& bh, const vec3& light_di
     std::ofstream out("image.ppm");
     camera cam(cfg);
     render(out, cam, world, light_direction, bh, samples);
- 
+
     std::cerr << "\rwrote image.ppm  beta=" << cfg.beta << "          \n";
 }
 
 int WORKER_COUNT = 1;
 int WORKER_INDEX = 1;
 
- 
-void export_series(const hittable& world, const blackhole& bh, const vec3& light_direction, 
+
+void export_series(const hittable& world, const blackhole& bh, const vec3& light_direction,
     int samples, int frames, cam_config& end_params, bool ping_pong, cam_config& cfg) {
     std::filesystem::create_directory("frames");
-    
+
     auto lerp = [](double a, double b, double alpha) { return a*(1-alpha) + b*alpha; };
     // resolution must land on an exact integer every frame: a*(1-t)+b*t is not
     // exactly a when a==b, and truncating 191.99999999999997 gives 191, which
@@ -69,7 +66,7 @@ void export_series(const hittable& world, const blackhole& bh, const vec3& light
 
         camera cam(temp);
         render(out, cam, world, light_direction, bh, samples);
- 
+
         std::cerr << "\rframe " << (i + 1) << "/" << frames << "  beta=" << new_beta << "\n";
     }
 
@@ -88,15 +85,15 @@ int main(int argc, char** argv) {
         WORKER_COUNT = std::stoi(argv[2]);
         WORKER_INDEX = std::stoi(argv[1]);
     }
-    
+
 
     blackhole bh;
     const vec3 light_direction = vec3(.0, -1.0, -1);
-    
-    const vec3 eye(0.0, 0.3, 16.0);
+
+    const vec3 eye(0.0, 3.0, 9.0);
     const double resX = 1920;
     const double resY = 1080;
-    
+
     cam_config cfg(
         bh.center-eye, // look at
         resX, // x
@@ -116,9 +113,9 @@ int main(int argc, char** argv) {
     );
 
     const int samples = 16;
- 
+
     // export_series
-    const int frames = 240;
+    const int frames = 120;
     const bool ping_pong = true;
 
 
@@ -138,8 +135,8 @@ int main(int argc, char** argv) {
     // world.add(std::make_shared<plane>(vec3(0.0, 0.0, 1.0), vec3(0, 0, -15), 20, 20, 650));
 
 
-    world.add(std::make_shared<disk>(bh, bh.center, unit_vec3(vec3(-0.1, 1, 0)), 3.0*bh.rs, 14.0*bh.rs, 420.0, 690.0));
-    
+    world.add(std::make_shared<disk>(bh, bh.center, unit_vec3(vec3(0, 1, 0)), 3.0*bh.rs, 14.0*bh.rs, 420.0, 690.0));
+
     // world.add(std::make_shared<sphere>(vec3(1,0,-2), 3, 500));
 
     // sphere grid
@@ -150,8 +147,8 @@ int main(int argc, char** argv) {
     //     }
     // }
 
-    export_ppm(world, bh, light_direction, samples, cfg);
-    // export_series(world, bh, light_direction, samples, frames, end_cfg, ping_pong, cfg);
+    // export_ppm(world, bh, light_direction, samples, cfg);
+    export_series(world, bh, light_direction, samples, frames, end_cfg, ping_pong, cfg);
 
     return 0;
 }
